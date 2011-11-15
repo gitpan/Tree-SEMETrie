@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Tree-SEMETrie
-version:             0.02
+version:             0.03
 abstract:            Single-Edge Multi-Edge Trie
 license:             perl
 author:              

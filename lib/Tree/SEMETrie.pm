@@ -13,11 +13,11 @@ Tree::SEMETrie - Single-Edge Multi-Edge Trie
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 #Class Constants
 my $VALUE  = 0;
@@ -681,8 +681,8 @@ Aaron Cohen, C<< <aarondcohen at gmail.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-tree-semetrie-fast at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Tree-SEMETrie-Fast>.  I will be notified, and then you'll
+Please report any bugs or feature requests to C<bug-tree-semetrie at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Tree-SEMETrie>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 =head1 TODO
