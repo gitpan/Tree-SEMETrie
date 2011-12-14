@@ -15,7 +15,7 @@
 #     LICENSE => q[perl]
 #     NAME => q[Tree::SEMETrie]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Test::More=>q[0] }
+#     PREREQ_PM => { Test::More=>q[0], Test::Exception=>q[0] }
 #     VERSION_FROM => q[lib/Tree/SEMETrie.pm]
 #     clean => { FILES=>q[Tree-SEMETrie-*] }
 #     dist => { COMPRESS=>q[gzip -9f], SUFFIX=>q[gz] }
@@ -58,11 +58,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Tree::SEMETrie
 NAME_SYM = Tree_SEMETrie
-VERSION = 0.03
+VERSION = 0.04
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_03
+VERSION_SYM = 0_04
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.03
+XS_VERSION = 0.04
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -184,15 +184,12 @@ PERL_ARCHIVE_AFTER =
 
 
 TO_INST_PM = lib/Tree/SEMETrie.pm \
-	lib/Tree/SEMETrie/Iterator.pm \
-	lib/Tree/SEMETrie/Theoretical.pm
+	lib/Tree/SEMETrie/Iterator.pm
 
 PM_TO_BLIB = lib/Tree/SEMETrie.pm \
 	blib/lib/Tree/SEMETrie.pm \
 	lib/Tree/SEMETrie/Iterator.pm \
-	blib/lib/Tree/SEMETrie/Iterator.pm \
-	lib/Tree/SEMETrie/Theoretical.pm \
-	blib/lib/Tree/SEMETrie/Theoretical.pm
+	blib/lib/Tree/SEMETrie/Iterator.pm
 
 
 # --- MakeMaker platform_constants section:
@@ -259,7 +256,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Tree-SEMETrie
-DISTVNAME = Tree-SEMETrie-0.03
+DISTVNAME = Tree-SEMETrie-0.04
 
 
 # --- MakeMaker macro section:
@@ -480,7 +477,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
 	$(NOECHO) $(ECHO) 'name:                Tree-SEMETrie' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version:             0.03' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version:             0.04' >> META_new.yml
 	$(NOECHO) $(ECHO) 'abstract:            Single-Edge Multi-Edge Trie' >> META_new.yml
 	$(NOECHO) $(ECHO) 'license:             perl' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:              ' >> META_new.yml
@@ -488,6 +485,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) 'generated_by:        ExtUtils::MakeMaker version 6.42' >> META_new.yml
 	$(NOECHO) $(ECHO) 'distribution_type:   module' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:     ' >> META_new.yml
+	$(NOECHO) $(ECHO) '    Test::Exception:               0' >> META_new.yml
 	$(NOECHO) $(ECHO) '    Test::More:                    0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'meta-spec:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    url:     http://module-build.sourceforge.net/META-spec-v1.3.html' >> META_new.yml
@@ -759,14 +757,15 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0,03,0,0">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0,04,0,0">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <TITLE>$(DISTNAME)</TITLE>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Single-Edge Multi-Edge Trie</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Aaron Cohen &lt;aarondcohen@gmail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <DEPENDENCY NAME="Test-Exception" VERSION="0,0,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <DEPENDENCY NAME="Test-More" VERSION="0,0,0,0" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <OS NAME="$(OSNAME)" />' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-gnu-thread-multi-5.1" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="i486-linux-gnu-thread-multi-5.1" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '</SOFTPKG>' >> $(DISTNAME).ppd
@@ -777,8 +776,7 @@ ppd :
 pm_to_blib : $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', '\''$(PM_FILTER)'\'')' -- \
 	  lib/Tree/SEMETrie.pm blib/lib/Tree/SEMETrie.pm \
-	  lib/Tree/SEMETrie/Iterator.pm blib/lib/Tree/SEMETrie/Iterator.pm \
-	  lib/Tree/SEMETrie/Theoretical.pm blib/lib/Tree/SEMETrie/Theoretical.pm 
+	  lib/Tree/SEMETrie/Iterator.pm blib/lib/Tree/SEMETrie/Iterator.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 

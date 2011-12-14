@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Tree-SEMETrie
-version:             0.03
+version:             0.04
 abstract:            Single-Edge Multi-Edge Trie
 license:             perl
 author:              
@@ -8,6 +8,7 @@ author:
 generated_by:        ExtUtils::MakeMaker version 6.42
 distribution_type:   module
 requires:     
+    Test::Exception:               0
     Test::More:                    0
 meta-spec:
     url:     http://module-build.sourceforge.net/META-spec-v1.3.html
